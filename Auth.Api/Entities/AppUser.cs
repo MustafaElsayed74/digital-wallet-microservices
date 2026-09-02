@@ -1,6 +1,8 @@
-﻿namespace Auth.Api.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Auth.Api.Entities
 {
-    public class AppUser
+    public class AppUser:  IdentityUser
     {
     }
 }

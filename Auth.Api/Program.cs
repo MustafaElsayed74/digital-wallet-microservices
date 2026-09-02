@@ -1,3 +1,6 @@
+using Auth.Api.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace Auth.Api
 {
     public class Program
@@ -8,12 +11,22 @@ namespace Auth.Api
 
             // Add services to the container.
 
-            
 
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer();
+            });
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
             builder.Services.AddControllers();
 
             var app = builder.Build();
-
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
