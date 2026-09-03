@@ -1,4 +1,7 @@
 using Auth.Api.Data;
+using Auth.Api.Entities;
+using Auth.Api.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Api
@@ -12,11 +15,24 @@ namespace Auth.Api
             // Add services to the container.
 
 
-            builder.Services.AddDbContext<AppDbContext>(options =>
+            // Configure the identity
+            builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+
+
+            builder.Services.AddDbContext<AuthDbContext>(options =>
             {
-                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-                options.UseSqlServer();
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Connection String not found");
+                options.UseSqlServer(connectionString);
             });
+
+
+            //Mapping Jwt settings in the JWT helper class so we can inject it whereever we want;
+            builder.Services.Configure<JWT>(
+                builder.Configuration.GetSection("Jwt")
+
+                );
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddControllers();
