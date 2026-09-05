@@ -4,6 +4,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+      - "ConnectionStrings__DefaultConnection=Server=auth.database,1433;Database=microservices-digitalwallet-db;User Id=sa;Password=${MSSQL_SA_PASSWORD:-WalletDev_2026!StrongPassword};TrustServerCertificate=True;MultipleActiveResultSets=true"
     ports:
       - "5001:8080"
       - "5501:8081"
