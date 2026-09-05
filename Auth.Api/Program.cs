@@ -1,6 +1,8 @@
 using Auth.Api.Data;
 using Auth.Api.Entities;
+using Auth.Api.Extensions;
 using Auth.Api.Helpers;
+using Auth.Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +16,7 @@ namespace Auth.Api
 
             // Add services to the container.
 
-
-            // Configure the identity
-            builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
-
+            builder.Services.AddIdentityServices(builder.Configuration);
 
             builder.Services.AddDbContext<AuthDbContext>(options =>
             {
@@ -27,12 +26,8 @@ namespace Auth.Api
             });
 
 
-            //Mapping Jwt settings in the JWT helper class so we can inject it whereever we want;
-            builder.Services.Configure<JWT>(
-                builder.Configuration.GetSection("Jwt")
-
-                );
-
+            
+          
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddControllers();
@@ -46,7 +41,7 @@ namespace Auth.Api
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
