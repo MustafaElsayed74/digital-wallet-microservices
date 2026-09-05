@@ -1,0 +1,29 @@
+services:
+  auth.api:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: Auth/Auth.Api/Dockerfile
+    expose:
+      - "8080"
+      - "8081"
+
+  transaction.api:
+    image: ${DOCKER_REGISTRY-}transactionapi
+    build:
+      context: .
+      dockerfile: Transaction/Transaction.Api/Dockerfile
+    expose:
+      - "8080"
+      - "8081"
+
+
+  wallet.api:
+    image: ${DOCKER_REGISTRY-}walletapi
+    build:
+      context: .
+      dockerfile: Wallet/Wallet.Api/Dockerfile
+    expose:
+      - "8080"
+      - "8081"
+
