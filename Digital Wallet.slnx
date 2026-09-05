@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/Services/">
     <Project Path="Auth.Api/Auth.Api.csproj" />
+    <Project Path="Transaction/Transaction.Api/Transaction.Api.csproj" Id="9aee9a19-e901-4e33-ab57-57e53a0d5e1e" />
+    <Project Path="Wallet/Wallet.Api/Wallet.Api.csproj" Id="e41b3a15-7561-4f47-9eeb-e5cd816c1fa7" />
   </Folder>
 </Solution>
